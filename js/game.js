@@ -208,6 +208,7 @@ function Enemy(I)
 /// *** Game Data *** ///
 var score = 0;
 var playerLife = 3;
+var canShoot = true;
 function playerIsAlive()
 {
     return playerLife > 0;
@@ -247,7 +248,7 @@ function draw()
 
     // Render the score
     canvas.fillStyle = "rgb(250, 250, 250)";
-    canvas.font = "24px Helvetica";
+    canvas.font = "24px Courier";
     canvas.textAlign = "left";
     canvas.textBaseline = "top";
     canvas.fillText("Score: " + score, 32, 32);
@@ -259,10 +260,11 @@ function draw()
     if (playerLife <= 0)
     {
         canvas.fillStyle = "rgb(255, 0, 0)"; // color use RGB decimal color scheme not the HEX
-        canvas.font = "72px Helvetica";
+        canvas.font = "72px Courier";
         canvas.textAlign = "center";
         canvas.textBaseline = "top";
         canvas.fillText("GAME OVER", CANVAS_WIDTH / 2, 120);
+
     }
 }
 
@@ -307,10 +309,11 @@ function checkCollision()
     });
 }
 
-// GAME LOOP //
+// *** GAME LOOP *** //
 function update() 
 {
     if (!playerIsAlive()) return;
+
     // Player GO Controls//
     // Player Movement
     if(keydown.left) 
@@ -326,8 +329,13 @@ function update()
         playerGO.y += 5;
 
     // Player Shoot
-    if (keydown.space)
+    if (keydown.space && canShoot)
+    {
         playerGO.Shoot();
+        canShoot = false;
+    }
+    if (!keydown.space && !canShoot)
+        canShoot = true;
 
     // Clamp the position so that it won't go out of bounds
     playerGO.x = playerGO.x.clamp(0, CANVAS_WIDTH - playerGO.width);
@@ -365,7 +373,14 @@ function update()
 }
 
 // BGM
-Sound.play("test");
+if (playerIsAlive())
+    Sound.play("alsoncute");
+else
+{
+    Sound.stop("test");
+    // Player GO
+    Sound.play("alsoncute");
+}
 
 // Cross browser support for the request animation frame
 var w = window;

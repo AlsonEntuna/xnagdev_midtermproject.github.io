@@ -1,7 +1,7 @@
 // Javascript Source Code for Game
 
 // CONSTANTS
-var CANVAS_WIDTH = 1000;
+var CANVAS_WIDTH = 500;
 var CANVAS_HEIGHT = 500;
 var FPS = 30;
 
@@ -33,7 +33,7 @@ var bg =
 };
 
 // set the sprite
-bg.sprite = Sprite("alson");
+bg.sprite = Sprite("bg2");
 
 bg.draw = function()
 {
@@ -56,7 +56,7 @@ var playerGO =
 };
 
 // player sprite
-playerGO.sprite = Sprite("player");
+playerGO.sprite = Sprite("ship2");
 
 // Player Functions
 playerGO.draw = function()
@@ -68,7 +68,7 @@ playerGO.draw = function()
 playerGO.midPoint = function() 
 {
     return { // wtf javascript can't understand why I have to make this convention ugh >.<
-    x: this.x + this.width / 2,
+    x: this.x + this.width * 1.25,
     y: this.y + this.height / 2
     };
 };
@@ -107,9 +107,9 @@ function Bullet(I) // constructor class
     // Default parameters
     I.xVelocity = 0;
     I.yVelocity = -I.speed;
-    I.width = 3; // change this if you want to resize the bullets
-    I.height = 3; // change this if you want to resize the bullets
-    I.color = "#FF0000"; // change the color if you want just input the HEX
+    I.width = 5; // change this if you want to resize the bullets
+    I.height = 12.5; // change this if you want to resize the bullets
+    I.color = "#f9f19a"; // change the color if you want just input the HEX
 
     I.inBounds =  function() // checks if the bullet is still in the canvas
     {
@@ -170,7 +170,7 @@ function Enemy(I)
     };
 
     // Sprite of the Enemy
-    I.sprite = Sprite("enemy");
+    I.sprite = Sprite("enemy3");
 
     // Render/Draw function of the Enemy class.. same as the bullet class
     I.draw = function()
@@ -374,12 +374,12 @@ function update()
 
 // BGM
 if (playerIsAlive())
-    Sound.play("alsoncute");
+    Sound.play("bgm");
 else
 {
     Sound.stop("test");
     // Player GO
-    Sound.play("alsoncute");
+    Sound.play("bgm");
 }
 
 // Cross browser support for the request animation frame

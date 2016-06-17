@@ -37,7 +37,7 @@ bg.sprite = Sprite("bg2");
 
 bg.draw = function()
 {
-    this.sprite.draw(canvas, this.x, this.y);
+    this.sprite.draw(canvas, this.x - playerGO.x * 0.5, this.y - playerGO.y * 0.5);
 };
 
 /// *** Player GameObject *** ///
